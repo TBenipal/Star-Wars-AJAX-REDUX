@@ -1,0 +1,88 @@
+@use '../abstracts';
+
+#footer {
+    background-color: abstracts.$primary-color;
+    height: auto;
+    width: 100%;
+    padding: 50px 10vw 25px 10vw;
+}
+
+#footer-content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#footer-text-logo {
+    display: flex;
+    flex-direction: column;
+}
+
+#footer-logo img {
+    width: 100px;
+    cursor: pointer;
+}
+
+#footer-text-logo p {
+    color: abstracts.$secondary-color;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    justify-self: self-start;
+}
+
+.social img {
+    width: 50px;
+}
+
+.social img:hover {
+    transform: scale(1.1);
+}
+
+.social img:active {
+    transform: scale(1.1);
+}
+
+.social {
+    margin: 5px;
+}
+
+#social-media {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    flex-direction: row;
+    // align-self: self-start;
+}
+
+
+@media screen and (min-width: 768px) {
+
+
+    #footer-text-logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+    }
+
+    #footer-text-logo p {
+        margin: 0px 50px;
+        font-size: 20px;
+    }
+
+    .social {
+        margin: 0px 10px;
+    }
+
+    #social-media {
+        align-self: center;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+
+}
