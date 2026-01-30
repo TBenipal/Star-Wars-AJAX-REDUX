@@ -1,64 +1,86 @@
-(function() {
+(() => {
 
-    // Connect to API (swapi.info) pull a list of 10 people
+    const characterBox = document.querySelector("#character-box");
+    const movieCon = document.querySelector("#movie-con");
+    const movieTemplate = document.querySelector("#movie-template");
+    const filmPosters = [
+        "images/new-hope.jpg",
+        "images/empire.jpg",
+        "images/return-jedi.jpg",
+        "images/phantom-menace.jpg",
+        "images/attack-clones.jpg",
+        "images/revenge-sith.jpg"
+    ];
+    const loading = document.querySelector("#loading");
 
-    // When user clicks on the speifec movie, include the title, poster image and opening crawl
+    //1st Route:
+    //https://swapi.info/api/people
 
-    // Route 1 - Get 10 Character:
-    // https://swapi.info/api/people
+    //2nd Route:
+    //https://swapi.info/api/films/1
 
-    // Route 2 - Get specifec Movie
-    // https://swapi.info/api/films/1
-    // or https://swapi.info/api/films/2
-
-    // Variables
-    // BaseUrl for stuff that won't change in the Url
     const baseUrl = "https://swapi.info/api/";
 
+    // FIRST AJAX CALL – GET CHARACTERS
     function getCharacters() {
         fetch(`${baseUrl}people`)
-        .then((response) => response.json())
-        .then((character) => {
-            // console.log(response[0].name);
-            character.forEach(characters => {
-                // console.log(characters.name);
-                // console.log(characters.films[0]);
-                // Randomize the number that is picked
-                // Figure out the length of the array then pick a number within that range
-            
-                // Create a ul
-                // Create a li
-                // Create an a
-                // Add a data attribute to the a tag that conatins a film
+        .then(response => response.json())
+        .then(function(characters) {
+
+            const ul = document.createElement("ul");
+
+            characters.forEach(character => {
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+
+                a.textContent = character.name;
+                a.dataset.film = character.films[0];
+
+                // li.appendChild(img);
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+
+            characterBox.appendChild(ul);
+        })
+        .then(function () {
+            const links = document.querySelectorAll("#character-box a");
+            links.forEach(link => {
+                link.addEventListener("click", getMovie);
             });
         })
-        .then(function() {
-            //attach event listener to each link, calls a new function that makes 2nd ajax call
-            
-        })
-        .catch((error) => {
-            console.error(error)
-        })
+        .catch(function(error) {
+            characterBox.innerHTML = "<p>Failed to load characters.</p>";
+            console.error(error);
+        });
     }
 
-    function getMovie() {
-        //need to extract data attributes either using event, e or this
-        fetch("https://swapi.info/api/films/1")
-        .then((response) => response.json())
-        .then((movie) => {
+    // SECOND AJAX CALL – GET MOVIE
+    function getMovie(e) {
+        movieCon.innerHTML = "";
+        loading.classList.remove("hidden");
 
-            console.log(movie);
-            console.log(`img.src="images/poster-${movie.episode_id}.jpg`)
-            console.log(movie.title);
-            console.log(movie.opening_crawl);
+        const filmUrl = e.currentTarget.dataset.film;
+
+        //https://swapi.info/api/films/1
+        fetch(filmUrl)
+        .then(response => response.json())
+        .then(function(movie) {
+
+            const clone = movieTemplate.content.cloneNode(true);
+            const poster = clone.querySelector(".movie-poster");
+            poster.src = filmPosters[filmUrl];
+            clone.querySelector(".movie-heading").textContent = movie.title;
+            clone.querySelector(".movie-description").textContent = movie.opening_crawl;
+            movieCon.appendChild(clone);
+            loading.classList.toggle("hidden");
         })
-
-        .catch((error) => {
+        .catch(function(error) {
+            movieCon.innerHTML = "<p>Failed to load movie.</p>";
             console.error(error);
         })
     }
 
-    //Call Function
     getCharacters();
-    getMovie();
+
 })();
