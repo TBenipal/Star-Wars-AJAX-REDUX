@@ -1,18 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>StarWars AJAX REDUX</title>
+    <title>Star Wars AJAX Guide</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/grid.css" rel="stylesheet"> 
-    <script src="js/main.js"></script>   
-</head>
-<body>
-    <section class="grid-con">
-        <div class="col-span-full m-col-span-6">
 
+    <link href="css/grid.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <script defer src="js/main.js"></script>
+</head>
+
+<body>
+<section class="grid-con">
+
+    <!-- Characters -->
+    <section class="col-span-full l-col-start-1 l-col-end-7">
+        <h2>Characters</h2>
+        <div id="character-box">
+            <!-- Character list-->
         </div>
     </section>
+
+    <!-- Movies -->
+    <section class="col-span-full l-col-start-7 l-col-end-13" id="movie-box">
+        <h2>Film Info</h2>
+
+        <svg version="1.1" id="loading" class="hidden" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
+            enable-background="new 0 0 0 0" xml:space="preserve">
+            <path fill="#333"
+                d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                <animatetransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
+                    from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+            </path>
+        </svg>
+
+        <div id="movie-con">
+            <!-- Movie Info -->
+        </div>
+
+        <template id="movie-template">
+            <div class="film-card">
+                <h3 class="movie-heading"></h3>
+                <img class="movie-poster" alt="Movie Poster">
+                <p class="movie-description"></p>
+            </div>
+        </template>
+    </section>
+
+</section>
 </body>
 </html>
