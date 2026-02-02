@@ -3,6 +3,12 @@
     const characterBox = document.querySelector("#character-box");
     const movieCon = document.querySelector("#movie-con");
     const movieTemplate = document.querySelector("#movie-template");
+    const searchInput = document.querySelector(".search-box input");
+    const loading = document.querySelector("#loading");
+    const movieBox = document.querySelector("#movie-box");
+    const charactersSection = document.querySelector("#characters");
+    const closeBtn = document.querySelector(".X");
+
     const filmPosters = {
         "https://swapi.info/api/films/1": "images/new-hope.webp",
         "https://swapi.info/api/films/2": "images/empire-strikes-back.webp",
@@ -12,75 +18,103 @@
         "https://swapi.info/api/films/6": "images/revenge-of-the-sith.webp"
     };
 
-    const loading = document.querySelector("#loading");
-
-    //1st Route:
-    //https://swapi.info/api/people
-
-    //2nd Route:
-    //https://swapi.info/api/films/1
-
     const baseUrl = "https://swapi.info/api/";
+    let allCharacters = [];
 
-    // FIRST AJAX CALL – GET CHARACTERS
     function getCharacters() {
         fetch(`${baseUrl}people`)
-        .then(response => response.json())
-        .then(function(characters) {
-
-            const ul = document.createElement("ul");
-
-            characters.forEach(character => {
-                const li = document.createElement("li");
-                const a = document.createElement("a");
-
-                a.textContent = character.name;
-                a.dataset.film = character.films[0];
-
-                li.appendChild(a);
-                ul.appendChild(li);
+            .then(response => response.json())
+            .then(characters => {
+                allCharacters = characters;
+                renderCharacters(allCharacters);
+            })
+            .catch(error => {
+                characterBox.innerHTML = "<p>Failed to load characters.</p>";
+                console.error(error);
             });
-
-            characterBox.appendChild(ul);
-        })
-        .then(function () {
-            const links = document.querySelectorAll("#character-box a");
-            links.forEach(link => {
-                link.addEventListener("click", getMovie);
-            });
-        })
-        .catch(function(error) {
-            characterBox.innerHTML = "<p>Failed to load characters.</p>";
-            console.error(error);
-        });
     }
 
-    // SECOND AJAX CALL – GET MOVIE
+    function renderCharacters(characters) {
+        characterBox.innerHTML = "";
+
+        const ul = document.createElement("ul");
+
+        characters.forEach(character => {
+
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+
+            a.textContent = character.name;
+            a.dataset.film = character.films[0];
+            a.addEventListener("click", getMovie);
+
+            li.appendChild(a);
+            ul.appendChild(li);
+        });
+
+        characterBox.appendChild(ul);
+    }
+    
+    searchInput.addEventListener("input", () => {
+        const searchValue = searchInput.value;
+
+        const filteredCharacters = allCharacters.filter(character =>
+            character.name.includes(searchValue)
+        );
+
+        renderCharacters(filteredCharacters);
+    });
+
     function getMovie(e) {
+        movieBox.style.display = "block";
         movieCon.innerHTML = "";
         loading.classList.remove("hidden");
 
         const filmUrl = e.currentTarget.dataset.film;
 
-        //https://swapi.info/api/films/1
         fetch(filmUrl)
-        .then(response => response.json())
-        .then(function(movie) {
+            .then(response => response.json())
+            .then(movie => {
+                const clone = movieTemplate.content.cloneNode(true);
+                const closeBtn = clone.querySelector(".X");
 
-            const clone = movieTemplate.content.cloneNode(true);
-            const poster = clone.querySelector(".movie-poster");
-            poster.src = filmPosters[filmUrl];
-            clone.querySelector(".movie-heading").textContent = movie.title;
-            clone.querySelector(".movie-description").textContent = movie.opening_crawl;
-            movieCon.appendChild(clone);
-            loading.classList.toggle("hidden");
-        })
-        .catch(function(error) {
-            movieCon.innerHTML = "<p>Failed to load movie.</p>";
-            console.error(error);
-        })
+                charactersSection.classList.add("hidden"); 
+                movieBox.classList.add("active");
+
+                closeBtn.addEventListener("click", () => {
+                    // Instead of .style.display, we toggle a class
+                    movieBox.classList.remove("active");
+                });
+
+                const poster = clone.querySelector(".movie-poster");
+                poster.src = filmPosters[filmUrl];
+                poster.alt = movie.title;
+
+                clone.querySelector(".movie-heading").textContent = movie.title;
+                clone.querySelector(".movie-description").textContent = movie.opening_crawl;
+
+                movieCon.appendChild(clone);
+                loading.classList.add("hidden");
+
+                closeBtn.addEventListener("click", () => {
+                    movieBox.classList.remove("active");
+                    charactersSection.classList.remove("hidden"); // Characters come back!
+                });
+
+            })
+            .catch(error => {
+                movieCon.innerHTML = "<p>Failed to load movie.</p>";
+                loading.classList.add("hidden");
+                console.error(error);
+            });
     }
 
     getCharacters();
+
+    closeBtn.addEventListener("click", () => {
+        movieBox.classList.remove("active");
+        charactersSection.classList.remove("hidden"); // Characters come back!
+    });
+
 
 })();
