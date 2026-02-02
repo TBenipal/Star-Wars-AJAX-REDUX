@@ -3,14 +3,15 @@
     const characterBox = document.querySelector("#character-box");
     const movieCon = document.querySelector("#movie-con");
     const movieTemplate = document.querySelector("#movie-template");
-    const filmPosters = [
-        "images/new-hope.jpg",
-        "images/empire.jpg",
-        "images/return-jedi.jpg",
-        "images/phantom-menace.jpg",
-        "images/attack-clones.jpg",
-        "images/revenge-sith.jpg"
-    ];
+    const filmPosters = {
+        "https://swapi.info/api/films/1": "images/new-hope.webp",
+        "https://swapi.info/api/films/2": "images/empire-strikes-back.webp",
+        "https://swapi.info/api/films/3": "images/return-of-jedi.webp",
+        "https://swapi.info/api/films/4": "images/phantom-menace.webp",
+        "https://swapi.info/api/films/5": "images/attack-of-the-clones.webp",
+        "https://swapi.info/api/films/6": "images/revenge-of-the-sith.webp"
+    };
+
     const loading = document.querySelector("#loading");
 
     //1st Route:
@@ -36,7 +37,6 @@
                 a.textContent = character.name;
                 a.dataset.film = character.films[0];
 
-                // li.appendChild(img);
                 li.appendChild(a);
                 ul.appendChild(li);
             });
