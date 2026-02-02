@@ -1,57 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Star Wars AJAX Guide</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Wars AJAX Guide</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/grid.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+  <link href="css/grid.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
 
-    <script defer src="js/main.js"></script>
+  <script defer src="js/main.js"></script>
 </head>
 
 <body>
-<section class="grid-con">
 
-    <!-- Movies -->
-    <section class="col-span-full l-col-start-7 l-col-end-13" id="movie-box">
-        <h1 class="hidden">Film Info</h1>
+<section id="the-content" class="grid-con">
 
-        <svg version="1.1" id="loading" class="hidden" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
-            enable-background="new 0 0 0 0" xml:space="preserve">
-            <path fill="#333"
-                d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
-                <animatetransform attributeName="transform" attributeType="XML" type="rotate" dur="1s"
-                    from="0 50 50" to="360 50 50" repeatCount="indefinite" />
-            </path>
-        </svg>
-
-        <div id="movie-con">
-            <!-- Movie Info -->
+    <!-- Charcters -->
+    <section id="characters" class="col-span-full m-col-start-2 m-col-end-8 l-col-start-2 l-col-end-7">
+        <h1 class="logo">STAR WARS</h1>
+        <div class="search-box">
+            <input type="text" placeholder="Search Character">
         </div>
 
-        <template id="movie-template" class="col-span-full m-col-start-2 m-col-end-8">
-            <h2>Film Info</h2>
-            <div class="movie-card">
-                <img class="movie-poster" alt="Movie Poster">
-                <div id="movie-text">
-                    <h3 class="movie-heading"></h3>
-                    <p class="movie-description"></p>
-                </div>
-            </div>
-        </template>
-    </section>
-    
-    <!-- Characters -->
-    <section id="characters" class="col-span-full l-col-start-1 l-col-end-7">
-        <h2>Characters</h2>
         <div id="character-box">
             <!-- Character list-->
         </div>
     </section>
 
+    <section id="movie-box" class="col-span-full m-col-start-5 m-col-end-9 l-col-start-2 l-col-end-12">
+        <h1 class="hidden">Film Info</h1>
+
+        <!-- Loading Spinner -->
+        <svg version="1.1" id="loading" class="hidden"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 100 100"
+        xml:space="preserve">
+        <path fill="#333"
+            d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50
+            M30.9,50c0-10.5,8.5-19.1,19.1-19.1
+            S69.1,39.5,69.1,50">
+            <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 50 50"
+            to="360 50 50"
+            dur="1s"
+            repeatCount="indefinite"/>
+        </path>
+        </svg>
+
+        <!-- Movie content -->
+        <div id="movie-con"></div>
+
+        <!-- Movie Template -->
+        <template id="movie-template">
+            <div class="movie-card">
+                <button class="X" aria-label="Open menu">
+                    <span class=""></span>
+                    <span class=""></span>
+                </button>
+                <img class="movie-poster" alt="Movie Poster">
+                <div id="movie-text">
+                <h3 class="movie-heading"></h3>
+                <p class="movie-description"></p>
+                </div>
+            </div>
+        </template>
+    </section>
+
 </section>
+
 </body>
 </html>
