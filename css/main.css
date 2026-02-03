@@ -242,19 +242,34 @@ body {
   min-height: 100vh;
 }
 
+/* Create a background layer */
+#characters::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/images/character-bkground.jpg);
+  background-size: cover;
+  background-position: center;
+  filter: blur(1px);
+  opacity: 0.9;
+  border-radius: 15px;
+  z-index: -1;
+}
+
 #characters {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 16px;
   padding: 30px 50px;
   margin: 25px;
 }
 
 .logo {
-  text-align: center;
-  font-size: 3rem;
-  color: #ffe81f;
-  letter-spacing: 3px;
+  width: 350px;
+  display: block;
+  align-self: center;
+  justify-self: center;
   margin-bottom: 20px;
 }
 
@@ -309,8 +324,12 @@ body {
   left: 0;
   width: 100%;
   height: 5px;
-  background: white;
+  background-color: white;
   border-radius: 5px;
+}
+
+.X:hover span {
+  background-color: #ffe81f;
 }
 
 .X span:nth-child(1) {
@@ -363,6 +382,12 @@ li a:hover {
 
 .movie-heading {
   font-size: 2.4rem;
+  margin-bottom: 10px;
+  color: yellow;
+}
+
+.release-date {
+  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
