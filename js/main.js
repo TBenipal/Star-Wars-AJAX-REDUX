@@ -82,7 +82,6 @@
                 movieBox.classList.add("active");
 
                 closeBtn.addEventListener("click", () => {
-                    // Instead of .style.display, we toggle a class
                     movieBox.classList.remove("active");
                 });
 
@@ -90,6 +89,7 @@
                 poster.src = filmPosters[filmUrl];
                 poster.alt = movie.title;
 
+                clone.querySelector(".release-date").textContent = movie.release_date;
                 clone.querySelector(".movie-heading").textContent = movie.title;
                 clone.querySelector(".movie-description").textContent = movie.opening_crawl;
 
