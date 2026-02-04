@@ -76,14 +76,26 @@
             .then(response => response.json())
             .then(movie => {
                 const clone = movieTemplate.content.cloneNode(true);
+                const screen = window.innerWidth;
                 const closeBtn = clone.querySelector(".X");
+                const tabletView = window.matchMedia("(min-width: 768px)");
+                const desktopView = window.matchMedia("(min-width: 1200px)");
+                
+                if(screen < 1200) {
+                    charactersSection.classList.add("hidden");
+                    closeBtn.addEventListener("click", () => {
+                        movieBox.classList.remove("active");
+                        charactersSection.classList.remove("hidden");
+                    });
+                }
 
-                charactersSection.classList.add("hidden"); 
-                movieBox.classList.add("active");
-
-                closeBtn.addEventListener("click", () => {
+                function resetMovieView() {
                     movieBox.classList.remove("active");
-                });
+                    charactersSection.classList.remove("hidden");
+                    movieCon.innerHTML = "";
+                }
+
+                movieBox.classList.add("active");
 
                 const poster = clone.querySelector(".movie-poster");
                 poster.src = filmPosters[filmUrl];
@@ -96,9 +108,10 @@
                 movieCon.appendChild(clone);
                 loading.classList.add("hidden");
 
+                tabletView.addEventListener("change", resetMovieView);
+                desktopView.addEventListener("change", resetMovieView);
                 closeBtn.addEventListener("click", () => {
                     movieBox.classList.remove("active");
-                    charactersSection.classList.remove("hidden"); // Characters come back!
                 });
 
             })
@@ -115,6 +128,13 @@
         movieBox.classList.remove("active");
         charactersSection.classList.remove("hidden"); // Characters come back!
     });
+
+    //GSAP
+    gsap.registerPlugin(DrawSVGPlugin)
+    function callGSAP() {
+        
+    }
+    callGSAP();
 
 
 })();

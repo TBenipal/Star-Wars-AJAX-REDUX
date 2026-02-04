@@ -242,7 +242,6 @@ body {
   min-height: 100vh;
 }
 
-/* Create a background layer */
 #characters::before {
   content: "";
   position: absolute;
@@ -423,6 +422,17 @@ li a:hover {
   }
 }
 @media screen and (min-width: 1200px) {
+  #characters::before {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  #movie-box.active {
+    position: relative;
+    right: 27px;
+    width: 100%;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
   .movie-card {
     display: flex;
     flex-direction: column;
