@@ -225,11 +225,22 @@ body {
     align-self: center;
   }
 }
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+  opacity: 0.9;
+  z-index: -2;
+}
+
 body {
   margin: 0;
   color: white;
   font-family: Arial, sans-serif;
-  background-color: red;
 }
 
 .hidden {
@@ -240,6 +251,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  z-index: 2;
 }
 
 #characters::before {
@@ -270,6 +282,12 @@ body {
   align-self: center;
   justify-self: center;
   margin-bottom: 20px;
+}
+
+.logo-path {
+  fill: transparent;
+  stroke: #ffe81f;
+  stroke-width: 6;
 }
 
 .search-box input {

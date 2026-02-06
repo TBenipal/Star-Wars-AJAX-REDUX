@@ -1,5 +1,4 @@
 (() => {
-
     const characterBox = document.querySelector("#character-box");
     const movieCon = document.querySelector("#movie-con");
     const movieTemplate = document.querySelector("#movie-template");
@@ -7,7 +6,6 @@
     const loading = document.querySelector("#loading");
     const movieBox = document.querySelector("#movie-box");
     const charactersSection = document.querySelector("#characters");
-    const closeBtn = document.querySelector(".X");
 
     const filmPosters = {
         "https://swapi.info/api/films/1": "images/new-hope.webp",
@@ -78,8 +76,6 @@
                 const clone = movieTemplate.content.cloneNode(true);
                 const screen = window.innerWidth;
                 const closeBtn = clone.querySelector(".X");
-                const tabletView = window.matchMedia("(min-width: 768px)");
-                const desktopView = window.matchMedia("(min-width: 1200px)");
                 
                 if(screen < 1200) {
                     charactersSection.classList.add("hidden");
@@ -87,12 +83,6 @@
                         movieBox.classList.remove("active");
                         charactersSection.classList.remove("hidden");
                     });
-                }
-
-                function resetMovieView() {
-                    movieBox.classList.remove("active");
-                    charactersSection.classList.remove("hidden");
-                    movieCon.innerHTML = "";
                 }
 
                 movieBox.classList.add("active");
@@ -106,12 +96,21 @@
                 clone.querySelector(".movie-description").textContent = movie.opening_crawl;
 
                 movieCon.appendChild(clone);
+                
                 loading.classList.add("hidden");
 
-                tabletView.addEventListener("change", resetMovieView);
-                desktopView.addEventListener("change", resetMovieView);
                 closeBtn.addEventListener("click", () => {
                     movieBox.classList.remove("active");
+                    charactersSection.classList.remove("hidden");
+                });
+
+                gsap.fromTo(movieBox, { 
+                    opacity: 0 
+                }, { 
+                    x: 0, 
+                    opacity: 1, 
+                    duration: 1, 
+                    ease: "ease-in" 
                 });
 
             })
@@ -124,17 +123,22 @@
 
     getCharacters();
 
-    closeBtn.addEventListener("click", () => {
-        movieBox.classList.remove("active");
-        charactersSection.classList.remove("hidden"); // Characters come back!
-    });
-
-    //GSAP
+    //GSAP Animation
     gsap.registerPlugin(DrawSVGPlugin)
-    function callGSAP() {
-        
-    }
-    callGSAP();
 
+    function callGSAP() {
+        gsap.set(".logo-path", {
+            drawSVG: "0%",
+            opacity: 1
+        });
+
+        gsap.to(".logo-path", {
+            drawSVG: "100%",
+            duration: 4,
+            ease: "power1.inOut"
+        });
+    }
+
+    callGSAP();
 
 })();
