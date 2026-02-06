@@ -85,6 +85,9 @@
                     });
                 }
 
+                const ship = document.querySelector("#s-ship");
+
+                ship.classList.add("hidden");
                 movieBox.classList.add("active");
 
                 const poster = clone.querySelector(".movie-poster");
@@ -102,6 +105,7 @@
                 closeBtn.addEventListener("click", () => {
                     movieBox.classList.remove("active");
                     charactersSection.classList.remove("hidden");
+                    ship.classList.remove("hidden");
                 });
 
                 gsap.fromTo(movieBox, { 

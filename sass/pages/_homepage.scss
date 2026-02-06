@@ -1,5 +1,9 @@
 @use '../abstracts/' as a;
 
+#s-ship {
+  display: none;
+}
+
 #bg-video { 
   position: fixed; 
   top: 0; 
@@ -220,6 +224,18 @@ li a:hover {
 }
 
 @media screen and (min-width: 1200px) {
+
+  #s-ship {
+    position: fixed;
+    top: 200px;
+    right: 200px;
+    display: block;
+  }
+
+  #ship {
+    width: 500px;
+    height: auto;
+  }
 
   #characters::before {
     border-top-right-radius: 0px;
