@@ -127,12 +127,10 @@
     gsap.registerPlugin(DrawSVGPlugin)
 
     function callGSAP() {
-        gsap.set(".logo-path", {
+        gsap.fromTo(".logo-path", {
             drawSVG: "0%",
             opacity: 1
-        });
-
-        gsap.to(".logo-path", {
+        }, {
             drawSVG: "100%",
             duration: 4,
             ease: "power1.inOut"
