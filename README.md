@@ -8,8 +8,8 @@
  - [Usage](#usage)
 
 ## Description:
-This is The Starwars API REDUX Project which has a main purpose.
-That is to show what character appeared in which film.
+This is The Starwars API REDUX Project thats main purpose is to
+show which character appeared in which starwars film/movie.
 
 ## Languages:
 HTML5, CSS3, SASS, Javascript
